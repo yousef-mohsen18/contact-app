@@ -1,5 +1,6 @@
 import 'package:contact_app/core/resourses/route_manager.dart';
 import 'package:contact_app/ui/home/screen/home_screen.dart';
+import 'package:contact_app/ui/home_concept/screen/home_concept.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
    routes: {
      RouteManager.homeRouteName:(context)=>HomeScreen(),
+     RouteManager.homeConceptRouteName:(context)=>HomeConcept(),
    },
       initialRoute: RouteManager.homeRouteName,
     );
