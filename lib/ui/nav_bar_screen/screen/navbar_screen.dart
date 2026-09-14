@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:contact_app/core/resourses/appv_alidator.dart';
 import 'package:contact_app/core/resourses/route_manager.dart';
 import 'package:contact_app/ui/nav_bar_screen/widjets/custom_text_filed.dart';
 import 'package:flutter/material.dart';
@@ -108,8 +109,9 @@ class _NavbarScreenState extends State<NavbarScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
-              CustomTextFiled(
+              SizedBox(height: 6),
+              CustomTextFiled(textInputAction: .next,
+                keyboardType: .name,
                 hintText: "Enter User Name",
                 controller: userNameController,
                 onChanged: (value) {
@@ -120,6 +122,10 @@ class _NavbarScreenState extends State<NavbarScreen> {
               ),
               SizedBox(height: 8),
               CustomTextFiled(
+                textInputAction: .next,
+                keyboardType: .emailAddress,
+                validator: (email) =>AppvAlidator.emailValidator(email) ,
+
                 hintText: "Enter User Email",
                 controller: emailController,
                 onChanged: (value) {
@@ -128,8 +134,10 @@ class _NavbarScreenState extends State<NavbarScreen> {
                   });
                 },
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 5),
               CustomTextFiled(
+                textInputAction: .done,
+                keyboardType: .phone,
                 hintText: "Enter User Phone",
                 controller: phoneController,
                 onChanged: (value) {
