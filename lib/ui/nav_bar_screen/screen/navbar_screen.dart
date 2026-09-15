@@ -36,7 +36,6 @@ class _NavbarScreenState extends State<NavbarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(userName);
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom
@@ -159,14 +158,17 @@ class _NavbarScreenState extends State<NavbarScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  // arguments: {
-                  //   'userName':userName,
-                  //   'email':email,
-                  //   'phone':phone
-                  // },
+
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pop(
+                        context,
+                        {
+                          'userName': userNameController.text,
+                          'email': emailController.text,
+                          'phone': phoneController.text,
+                        },
+                      );
                     },
                     child: Text(
                       "Enter user",

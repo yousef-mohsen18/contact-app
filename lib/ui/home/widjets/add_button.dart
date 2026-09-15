@@ -6,20 +6,26 @@ import 'package:flutter_svg/svg.dart';
 import '../../../core/resourses/colors_manager.dart';
 
 class AddButton extends StatelessWidget {
-  const AddButton({super.key});
+  final void Function(Map<String, dynamic> user) onUserAdded;
+  const AddButton({super.key, required this.onUserAdded});
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {
-        showModalBottomSheet(
-          isScrollControlled: true,
-          context: context,
-          builder: (context) {
-            return NavbarScreen();
-          },
-        );
-      },
+        onPressed: () async {
+          final result = await showModalBottomSheet(
+            isScrollControlled: true,
+            context: context,
+            builder: (context) {
+              return NavbarScreen();
+            },
+          );
+
+          if (result != null) {
+            onUserAdded(result);
+          }
+        },
+
       style: IconButton.styleFrom(
         backgroundColor: AppColors.offWhite,
         elevation: 0,
