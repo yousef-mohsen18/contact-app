@@ -16,9 +16,9 @@ class NavbarScreen extends StatefulWidget {
 }
 
 class _NavbarScreenState extends State<NavbarScreen> {
-  String userName = " ";
-  String email = " ";
-  String phone = " ";
+  String userName = "";
+  String email = "";
+  String phone = "";
 
 
   TextEditingController userNameController = TextEditingController();
@@ -161,7 +161,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
 
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pop(
+                      (userName.isEmpty||email.isEmpty||phone.isEmpty)?Navigator.pop(context): Navigator.pop(
                         context,
                         {
                           'userName': userNameController.text,

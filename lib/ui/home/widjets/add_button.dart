@@ -33,7 +33,7 @@ class AddButton extends StatelessWidget {
           borderRadius: BorderRadiusGeometry.circular(16),
         ),
       ),
-      icon: SvgPicture.asset("assets/icons/add.svg"),
+      icon: SvgPicture.asset("assets/icons/add.svg",height: 40,width: 40,),
     );
   }
 }

@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Contact extends StatelessWidget {
+  final VoidCallback DeleteItem;
   const Contact({
     required this.userName,
     required this.email,
-    required this.phone,
+    required this.phone,  required this.DeleteItem,
   });
 
   final String userName;
@@ -57,7 +58,8 @@ class Contact extends StatelessWidget {
             ],
           ),
           Container(
-            color: AppColors.offWhite,
+
+            decoration: BoxDecoration( color: AppColors.offWhite,borderRadius: BorderRadiusGeometry.only(bottomRight:Radius.circular(16),bottomLeft:Radius.circular(16))),
 
             width: 177,
             child: Column(
@@ -74,7 +76,7 @@ class Contact extends StatelessWidget {
                         style: TextStyle(
                           color: AppColors.blueDark,
                           fontWeight: .w500,
-                          fontSize: 10,
+                          fontSize: 11,
                         ),
                       ),
                     ],
@@ -92,24 +94,32 @@ class Contact extends StatelessWidget {
                         style: TextStyle(
                           color: AppColors.blueDark,
                           fontWeight: .w500,
-                          fontSize: 10,
+                          fontSize: 13,
                         ),
                       ),
                     ],
                   ),
-                ),
-                ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor:Colors.red,elevation: 0,foregroundColor: Colors.white ),
-                    onPressed: () {
-
-                }, child: Align(
-                      alignment: Alignment.center,
-                  child: Row(
-                    spacing: 8,
-                    children: [SvgPicture.asset("assets/icons/Union.svg",width: 13,),
-                      Text("Delete",style: TextStyle(fontWeight: .w500,fontSize: 16,color: Colors.white),)
-                    ],
+                ),SizedBox(height: 10,),
+                Container(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsetsGeometry.symmetric(horizontal: 8),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 40,
+                      child: ElevatedButton(style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(8)),backgroundColor:Colors.red,elevation: 0,foregroundColor: Colors.white ),
+                          onPressed: DeleteItem,
+                           child: Row(
+                             spacing: 8,
+                             mainAxisAlignment: MainAxisAlignment.center,
+                             children: [SvgPicture.asset("assets/icons/Union.svg",width: 13,),
+                               Text("Delete",style: TextStyle(fontWeight: .w500,fontSize: 16,color: Colors.white),)
+                             ],
+                           )),
+                    ),
                   ),
-                ))
+                ),
+                SizedBox(height: 5,)
               ],
             ),
           ),
