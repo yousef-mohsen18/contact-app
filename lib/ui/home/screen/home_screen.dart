@@ -2,6 +2,8 @@ import 'package:contact_app/core/resourses/assets_manager.dart';
 import 'package:contact_app/core/resourses/colors_manager.dart';
 import 'package:contact_app/ui/home/widjets/add_button.dart';
 import 'package:contact_app/ui/home/widjets/contact.dart';
+import 'package:contact_app/ui/home/widjets/delete_button.dart';
+import 'package:contact_app/ui/home/widjets/no_contacts_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -43,46 +45,33 @@ class _HomeScreenState extends State<HomeScreen>
                   child: Image.asset(AssetsManager.logo),
                 ),
                 (users!.isEmpty)
-                    ? Column(
-                        children: [
-                          SizedBox(height: 161),
-                          //   Align(
-                          //   alignment: Alignment.center,
-                          //   child: Lottie.asset(
-                          //     "assets/images/empty_list.json",
-                          //   ),
-                          // ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "There is No Contacts Added Here",
-                              style: TextStyle(
-                                fontWeight: .w500,
-                                fontSize: 20,
-                                color: AppColors.offWhite,
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    :
-                      Expanded(
+                    ? NoContactsWidget()
+                    : Expanded(
                         child: SizedBox(
                           height: double.infinity,
                           width: double.infinity,
                           child: GridView.builder(
-                            padding: EdgeInsetsGeometry.only(left: 16,right: 16,top: 27),
+                            padding: EdgeInsetsGeometry.only(
+                              left: 16,
+                              right: 16,
+                              top: 27,
+                            ),
 
                             itemCount: users?.length,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   mainAxisExtent: 295,
+                                  mainAxisSpacing: 15,
                                 ),
                             itemBuilder: (context, index) {
+
                               final user = users![index];
 
                               return Contact(
+                                DeleteItem: () {
+                                  DeleteItem(index);
+                                },
                                 email: user['email'],
                                 phone: user['phone'],
                                 userName: user['userName'],
@@ -105,22 +94,46 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                 ),
               )
-            : Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 16, bottom: 16),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: AddButton(
-                      onUserAdded: (result) {
-                        setState(() {
-                          users?.add(result);
-                        });
-                      },
+            : Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.8),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10, bottom: 5),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: DeleteButton(
+                        Delete: Delete
+                      ),
                     ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: AddButton(
+                        onUserAdded: (result) {
+                          setState(() {
+                            users?.add(result);
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
       ],
     );
+  }
+
+  void Delete() {
+    setState(() {
+      users!.clear();
+    });
+  }
+
+  void DeleteItem(int position) {
+    setState(() {
+      users?.removeAt(position);
+    });
   }
 }
